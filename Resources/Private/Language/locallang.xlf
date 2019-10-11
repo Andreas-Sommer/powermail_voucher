@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-10-11T15:34:55Z" product-name="powermail_voucher">
+		<header/>
+		<body>
+			<trans-unit id="tx_powermailvoucher_domain_model_campaign">
+				<source>Campaign</source>
+			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_domain_model_campaign.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_domain_model_voucher">
+				<source>Voucher</source>
+			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_domain_model_voucher.code">
+				<source>Code</source>
+			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_domain_model_voucher.campaign">
+				<source>Campaign</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

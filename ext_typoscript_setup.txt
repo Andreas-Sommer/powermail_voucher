@@ -1,0 +1,58 @@
+plugin.tx_powermail {
+	view {
+		templateRootPaths {
+		}
+		partialRootPaths {
+			300 = EXT:powermail_voucher/Resources/Private/Partials/
+		}
+		layoutRootPaths {
+		}
+	}
+	settings.setup {
+		dataProcessors {
+			1 {
+				class = Belsignum\PowermailVoucher\DataProcessor\RequestVoucherDataProcessor
+			}
+		}
+	}
+}
+
+
+# Add new Field Properties
+config.tx_extbase{
+	persistence{
+		classes{
+
+			In2code\Powermail\Domain\Model\Field {
+				subclasses {
+					0 = Belsignum\PowermailVoucher\Domain\Model\Field
+				}
+			}
+			Belsignum\PowermailVoucher\Domain\Model\Field {
+				mapping {
+					tableName = tx_powermail_domain_model_field
+					columns {
+						tx_powermailvoucher_campaign.mapOnProperty = campaign
+					}
+				}
+			}
+			In2code\Powermail\Domain\Model\Mail {
+				subclasses {
+					0 = Belsignum\PowermailVoucher\Domain\Model\Mail
+				}
+			}
+			Belsignum\PowermailVoucher\Domain\Model\Mail {
+				mapping {
+					tableName = tx_powermail_domain_model_mail
+					columns {
+						tx_powermailvoucher_voucher.mapOnProperty = voucher
+					}
+				}
+			}
+		}
+	}
+	objects {
+		In2code\Powermail\Domain\Model\Field.className = Belsignum\PowermailVoucher\Domain\Model\Field
+		In2code\Powermail\Domain\Model\Mail.className = Belsignum\PowermailVoucher\Domain\Model\Mail
+	}
+}
