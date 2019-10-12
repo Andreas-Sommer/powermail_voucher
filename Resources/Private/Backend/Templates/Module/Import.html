@@ -1,0 +1,16 @@
+{namespace flux=FluidTYPO3\Flux\ViewHelpers}
+<f:layout name="Backend" />
+
+<f:section name="headline">
+	<h1><f:translate key="tx_powermailvoucher_backend.import">Import</f:translate></h1>
+</f:section>
+
+<f:section name="content">
+	<f:form action="import" enctype="multipart/form-data" name="fileupload" object="fileupload">
+		<f:form.select id="campaign" name="campaign" options="{campaigns}" value="{campaign}" sortByOptionLabel="1" optionLabelField="title" optionValueField="uid" prependOptionLabel="{f:translate(key: 'tx_powermailvoucher_backend.select_campaign')}" additionalAttributes="{required: ''}" />
+
+		<f:form.upload property="file" additionalAttributes="{accept: '.csv', required: ''}"  />
+		<f:form.button>upload</f:form.button>
+	</f:form>
+
+</f:section>

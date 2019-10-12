@@ -1,0 +1,48 @@
+<f:layout name="Backend" />
+
+<f:section name="headline">
+	<h1><f:translate key="tx_powermailvoucher_backend.voucher_list">Voucher list</f:translate></h1>
+</f:section>
+
+<f:section name="content">
+
+
+	<f:form id="campaignList" action="list">
+		<f:form.select id="campaign" name="campaign" options="{campaigns}" value="{campaign}" sortByOptionLabel="1" optionLabelField="title" optionValueField="uid" prependOptionLabel="{f:translate(key: 'tx_powermailvoucher_backend.select_campaign')}" prependOptionValue="0" />
+		<script>
+			$(function () {
+				$('#campaign').on('change', function () {
+					$('#campaignList').submit();
+				});
+			});
+		</script>
+	</f:form>
+	<hr>
+
+
+	<f:if condition="{campaign}">
+		<f:then>
+			<h2><f:translate key="tx_powermailvoucher_backend.campaign">Campaign</f:translate>: {campaign.title}</h2>
+			<div role="tabpanel" class="tab-pane active mt-5">
+				<div class="table-fit">
+					<table class="table">
+						<tr>
+							<th><f:translate key="tx_powermailvoucher_backend.voucher_code">Voucher Code</f:translate></th>
+							<th><f:translate key="tx_powermailvoucher_backend.assigned_to">Assigned to</f:translate></th>
+						</tr>
+					<f:for each="{campaign.vouchers}" as="voucher">
+						<tr>
+							<td>{voucher.code}</td>
+							<td>{voucher.mail.senderMail}</td>
+						</tr>
+					</f:for>
+					</table>
+				</div>
+			</div>
+		</f:then>
+		<f:else>
+			<f:format.html><f:translate key="tx_powermailvoucher_backend.no_campaign">No campaign selected</f:translate></f:format.html>
+		</f:else>
+	</f:if>
+
+</f:section>

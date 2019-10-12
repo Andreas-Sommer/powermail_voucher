@@ -9,6 +9,9 @@
 			<trans-unit id="tx_powermailvoucher_domain_model_campaign.title">
 				<source>Title</source>
 			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_domain_model_campaign.vouchers">
+				<source>Vouchers</source>
+			</trans-unit>
 
 			<trans-unit id="tx_powermailvoucher_domain_model_voucher">
 				<source>Voucher</source>

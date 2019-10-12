@@ -84,7 +84,7 @@ class Voucher extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * @return \In2code\Powermail\Domain\Model\Mail
 	 */
-	public function getMail(): \In2code\Powermail\Domain\Model\Mail
+	public function getMail(): ?\In2code\Powermail\Domain\Model\Mail
 	{
 		return $this->mail;
 	}

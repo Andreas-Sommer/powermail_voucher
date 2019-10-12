@@ -12,14 +12,14 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'title',
+        'searchFields' => 'title,vouchers',
         'iconfile' => 'EXT:powermail_voucher/Resources/Public/Icons/icon.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden, title',
+        'showRecordFieldList' => 'hidden, vouchers, title',
     ],
     'types' => [
-        '1' => ['showitem' => 'title, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, starttime, endtime'],
+        '1' => ['showitem' => 'title, vouchers, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, starttime, endtime'],
     ],
     'columns' => [
 
@@ -74,6 +74,19 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim,required'
+            ],
+        ],
+        'vouchers' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:powermail_voucher/Resources/Private/Language/locallang_db.xlf:tx_powermailvoucher_domain_model_campaign.vouchers',
+            'config' => [
+                'type' => 'inline',
+                'foreign_table' => 'tx_powermailvoucher_domain_model_voucher',
+				'foreign_field' => 'campaign',
+				'appearance' => [
+					'collapseAll' => 1,
+					'expandSingle' => 1,
+				],
             ],
         ],
 

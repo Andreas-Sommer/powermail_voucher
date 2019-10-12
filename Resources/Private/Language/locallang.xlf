@@ -6,6 +6,28 @@
 			<trans-unit id="tx_powermailvoucher_error.exceeds_vouchers">
 				<source>Sorry, we ran out of voucher codes, please contact our customer support.</source>
 			</trans-unit>
+
+			<trans-unit id="tx_powermailvoucher_backend.voucher_list">
+				<source>Voucher List</source>
+			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_backend.import">
+				<source>Import</source>
+			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_backend.campaign">
+				<source>Campaign</source>
+			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_backend.select_campaign">
+				<source>Select campaign</source>
+			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_backend.voucher_code">
+				<source>Voucher code</source>
+			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_backend.assigned_to">
+				<source>Assigned to</source>
+			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_backend.no_campaign">
+				<source>No campaign selected</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
