@@ -19,11 +19,12 @@ class VoucherRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	 * @param \Belsignum\PowermailVoucher\Domain\Model\Campaign $campaign
 	 *
 	 * @return object
-	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
 	 */
 	public function findOneUnusedByCampaign(Campaign $campaign)
 	{
 		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+
 		$query->matching(
 			$query->logicalAnd(
 				$query->equals('campaign', $campaign->getUid()),

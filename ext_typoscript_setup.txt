@@ -9,6 +9,11 @@ plugin.tx_powermail {
 		}
 	}
 	settings.setup {
+		validators {
+			1 {
+				class = Belsignum\PowermailVoucher\Domain\Validator\VoucherValidator
+			}
+		}
 		dataProcessors {
 			1 {
 				class = Belsignum\PowermailVoucher\DataProcessor\RequestVoucherDataProcessor

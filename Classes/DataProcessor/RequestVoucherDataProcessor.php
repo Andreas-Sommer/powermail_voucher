@@ -9,16 +9,17 @@
 namespace Belsignum\PowermailVoucher\DataProcessor;
 
 use Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository;
+use Belsignum\PowermailVoucher\Utility\VoucherUtility;
 use In2code\Powermail\DataProcessor\AbstractDataProcessor;
 
 class RequestVoucherDataProcessor extends AbstractDataProcessor
 {
 	/**
-	 * voucher campaign field
+	 * voucherField
 	 *
 	 * @var \Belsignum\PowermailVoucher\Domain\Model\Field
 	 */
-	protected $vcf;
+	protected $voucherField;
 
 	/**
 	 * voucherRepository
@@ -38,39 +39,21 @@ class RequestVoucherDataProcessor extends AbstractDataProcessor
 	/**
 	 * adds a voucher code to a mail if a field of type voucher_campaign is set
 	 *
-	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+	 * @return void
 	 */
 	public function voucherDataProcessor()
 	{
-		$fields = $this->mail->getForm()->getFields();
-
-		/**
-		 * @var \Belsignum\PowermailVoucher\Domain\Model\Field $field
-		 */
-		foreach ($fields as $_ => $field)
+		$this->voucherField = VoucherUtility::getVoucherField($this->mail);
+		if($this->voucherField)
 		{
-			if($field->getType() === 'voucher_campaign')
-			{
-				$this->vcf = $field;
-				break;
-			}
-		}
-
-		if($this->vcf)
-		{
-			/** @var \TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface $querySettings */
-			$querySettings = $this->voucherRepository->createQuery()->getQuerySettings();
-			$querySettings->setRespectStoragePage(FALSE);
-			$this->voucherRepository->setDefaultQuerySettings($querySettings);
-
 			/** @var \Belsignum\PowermailVoucher\Domain\Model\Voucher $voucher */
-			$voucher = $this->voucherRepository->findOneUnusedByCampaign($this->vcf->getCampaign());
+			$voucher = $this->voucherRepository->findOneUnusedByCampaign($this->voucherField->getCampaign());
 			if(!$voucher)
 			{
 				throw new \UnexpectedValueException('Could not find any voucher codes');
 			}
 
-			$this->mail->getAnswersByFieldUid()[$this->vcf->getUid()]->setValue($voucher->getCode());
+			$this->mail->getAnswersByFieldUid()[$this->voucherField->getUid()]->setValue($voucher->getCode());
 			$voucher->setMail($this->mail);
 			$this->mail->setVoucher($voucher);
 		}

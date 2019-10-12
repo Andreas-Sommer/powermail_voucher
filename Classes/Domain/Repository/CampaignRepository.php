@@ -17,4 +17,4 @@ namespace Belsignum\PowermailVoucher\Domain\Repository;
  */
 class CampaignRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-    }
+}

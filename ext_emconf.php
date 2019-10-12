@@ -11,7 +11,7 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'Voucher request with Powermail',
+    'title' => 'Voucher code request with Powermail. ',
     'description' => '',
     'category' => 'plugin',
     'author' => 'Andreas Sommer',

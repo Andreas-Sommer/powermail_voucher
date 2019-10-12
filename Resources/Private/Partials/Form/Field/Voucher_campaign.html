@@ -1,6 +1,6 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
-<f:form.textfield
+<f:form.hidden
 		id="powermail_field_{field.marker}"
 		property="{field.marker}"
-		value="{vh:Misc.PrefillField(field:field, mail:mail)} abcdef"
+		value="{vh:Misc.PrefillField(field:field, mail:mail)}"
 		class="powermailvoucher_voucher powermail_hidden {field.css} powermail_{field.marker}" />
