@@ -8,7 +8,7 @@ return [
         'cruser_id' => 'cruser_id',
 
         'searchFields' => 'code,campaign,mail',
-        'iconfile' => 'EXT:powermail_voucher/Resources/Public/Icons/tx_powermailvoucher_domain_model_voucher.gif'
+        'iconfile' => 'EXT:powermail_voucher/Resources/Public/Icons/icon.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'code, campaign, mail',

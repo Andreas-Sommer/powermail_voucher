@@ -13,7 +13,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title',
-        'iconfile' => 'EXT:powermail_voucher/Resources/Public/Icons/tx_powermailvoucher_domain_model_campaign.gif'
+        'iconfile' => 'EXT:powermail_voucher/Resources/Public/Icons/icon.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'hidden, title',
