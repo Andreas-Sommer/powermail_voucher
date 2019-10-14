@@ -11,8 +11,6 @@
 Users Manual
 ============
 
-Target group: **Editors**
-
 - How does it work?
 
   - Goto List view on a page of your choice
