@@ -9,8 +9,8 @@
         }
     ],
     "require": {
-        "typo3/cms-core": "^8.7.1",
-        "in2code/powermail": ">=7.4.0"
+        "typo3/cms-core": ">=8.7.0 <10.0.0",
+        "in2code/powermail": ">=6.0.0"
     },
     "autoload": {
         "psr-4": {

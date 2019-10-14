@@ -4,6 +4,7 @@ $tempPowermailvoucherFieldColumns = [
 	'tx_powermailvoucher_campaign' => [
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail_voucher/Resources/Private/Language/locallang_db.xlf:tx_powermailvoucher_domain_model_field.campaign',
+		'displayCond' => 'FIELD:type:=:voucher_campaign',
 		'config' => [
 			'type' => 'select',
 			'foreign_table' => 'tx_powermailvoucher_domain_model_campaign',
