@@ -2,3 +2,5 @@
 /Tests
 ExtensionBuilder.json
 /Configuration/ExtensionBuilder
+docker-compose.yml
+Documentation-GENERATED-temp
