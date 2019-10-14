@@ -8,6 +8,7 @@
             "role": "Developer"
         }
     ],
+    "license": "GPL-2.0-or-later",
     "require": {
         "typo3/cms-core": ">=8.7.0 <10.0.0",
         "in2code/powermail": ">=6.0.0"
