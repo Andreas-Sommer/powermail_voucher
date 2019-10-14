@@ -23,7 +23,7 @@
         }
     },
     "replace": {
-        "powermail_voucher": "self.version",
+        "belsignum/powermail_voucher": "self.version",
         "typo3-ter/powermail-voucher": "self.version"
     }
 }
