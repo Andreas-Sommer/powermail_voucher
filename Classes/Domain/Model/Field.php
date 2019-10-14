@@ -17,7 +17,7 @@ class Field extends \In2code\Powermail\Domain\Model\Field
 	 * @return \Belsignum\PowermailVoucher\Domain\Model\Campaign
 	 */
 	public function getCampaign(
-	): \Belsignum\PowermailVoucher\Domain\Model\Campaign
+	): ?\Belsignum\PowermailVoucher\Domain\Model\Campaign
 	{
 		return $this->campaign;
 	}
