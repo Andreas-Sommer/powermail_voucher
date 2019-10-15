@@ -28,6 +28,21 @@
 			<trans-unit id="tx_powermailvoucher_backend.no_campaign">
 				<source>No campaign selected</source>
 			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_backend.csv_format">
+				<source>CSV Format</source>
+			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_backend.no_headlines">
+				<source>No headlines</source>
+			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_backend.delimiter">
+				<source>delimiter: new line</source>
+			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_backend.example">
+				<source>Example</source>
+			</trans-unit>
+			<trans-unit id="tx_powermailvoucher_backend.foobar">
+				<source><![CDATA[foo<br>bar]]></source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

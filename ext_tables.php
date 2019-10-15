@@ -26,7 +26,7 @@ call_user_func(
 				'Module' => 'list, import',
 			],
 			[
-				'access' => 'admin',
+				'access' => 'user,group',
 				'icon' => 'EXT:powermail_voucher/Resources/Public/Icons/icon.svg',
 				'labels' => 'LLL:EXT:powermail_voucher/Resources/Private/Language/locallang_mod.xlf',
 			]

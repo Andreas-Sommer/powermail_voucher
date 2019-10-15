@@ -54,12 +54,15 @@ class ModuleController extends AbstractController
 
 			$tmpFile = $_FILES['tx_powermailvoucher_web_powermailvouchervoucher']['tmp_name']['fileupload']['file'];
 			$content = file_get_contents($tmpFile);
-			$codes = str_getcsv($content);
+			$codes = str_getcsv($content, \chr(10));
+
 			$this->voucherRepository->import(
 				$codes,
 				$this->request->getArgument('campaign'),
 				$pid
 			);
+
+			$this->addFlashMessage('Import complete', 'Success', AbstractMessage::OK);
 		}
 	}
 

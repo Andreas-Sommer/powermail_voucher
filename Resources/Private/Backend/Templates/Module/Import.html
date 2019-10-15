@@ -2,10 +2,13 @@
 <f:layout name="Backend" />
 
 <f:section name="headline">
-	<h1><f:translate key="tx_powermailvoucher_backend.import">Import</f:translate></h1>
+	<h1><f:translate key="tx_powermailvoucher_backend.import">Simple Import</f:translate></h1>
 </f:section>
 
 <f:section name="content">
+
+	<f:flashMessages />
+
 	<f:form action="import" enctype="multipart/form-data" name="fileupload" object="fileupload">
 		<f:form.select id="campaign" name="campaign" options="{campaigns}" value="{campaign}" sortByOptionLabel="1" optionLabelField="title" optionValueField="uid" prependOptionLabel="{f:translate(key: 'tx_powermailvoucher_backend.select_campaign')}" additionalAttributes="{required: ''}" />
 
@@ -13,4 +16,16 @@
 		<f:form.button>upload</f:form.button>
 	</f:form>
 
+
+	<aside>
+		<h3><f:translate key="tx_powermailvoucher_backend.csv_format">CSV Format</f:translate></h3>
+		<ul>
+			<li><f:translate key="tx_powermailvoucher_backend.no_headlines">No headlines</f:translate></li>
+			<li><f:translate key="tx_powermailvoucher_backend.delimiter">delimiter: new line</f:translate></li>
+		</ul>
+
+		<h3><f:translate key="tx_powermailvoucher_backend.example">Example</f:translate></h3>
+		<f:format.html><f:translate key="tx_powermailvoucher_backend.foobar">foo
+			bar</f:translate></f:format.html>
+	</aside>
 </f:section>
