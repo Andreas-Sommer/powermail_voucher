@@ -8,6 +8,7 @@
 
 namespace Belsignum\PowermailVoucher\DataProcessor;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository;
 use Belsignum\PowermailVoucher\Utility\VoucherUtility;
 use In2code\Powermail\DataProcessor\AbstractDataProcessor;
@@ -43,20 +44,58 @@ class RequestVoucherDataProcessor extends AbstractDataProcessor
 	 */
 	public function voucherDataProcessor()
 	{
-		$this->voucherField = VoucherUtility::getVoucherField($this->mail);
-		if($this->voucherField)
+		if($this->check())
 		{
-			/** @var \Belsignum\PowermailVoucher\Domain\Model\Voucher $voucher */
-			$voucher = $this->voucherRepository->findOneUnusedByCampaign($this->voucherField->getCampaign());
-			if(!$voucher)
-			{
-				throw new \UnexpectedValueException('Could not find any voucher codes');
-			}
+			$this->voucherField = VoucherUtility::getVoucherField($this->mail);
+			if ($this->voucherField) {
+				/** @var \Belsignum\PowermailVoucher\Domain\Model\Voucher $voucher */
+				$voucher
+					= $this->voucherRepository->findOneUnusedByCampaign($this->voucherField->getCampaign());
+				if ( ! $voucher) {
+					throw new \UnexpectedValueException('Could not find any voucher codes');
+				}
 
-			$this->mail->getAnswersByFieldUid()[$this->voucherField->getUid()]->setValue($voucher->getCode());
-			$voucher->setMail($this->mail);
-			$this->mail->setVoucher($voucher);
+				$this->mail->getAnswersByFieldUid()[$this->voucherField->getUid()]->setValue($voucher->getCode());
+				$voucher->setMail($this->mail);
+				$this->mail->setVoucher($voucher);
+			}
+		}
+	}
+
+	/**
+	 * check to proceed data Processor
+	 *
+	 * @return bool
+	 */
+	protected function check()
+	{
+		if(
+			$this->settings['main']['optin'] !== '1'
+			&& $this->getActionMethodName() === 'createAction'
+		)
+		{
+			return TRUE;
 		}
 
+		if(
+			$this->settings['main']['optin'] === '1'
+			&& $this->getOriginAction() === 'optinConfirm'
+		   	&& $this->getActionMethodName() === 'createAction'
+		)
+		{
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	/**
+	 * Get origin action
+	 *
+	 * @return string
+	 */
+	protected function getOriginAction()
+	{
+		$request = GeneralUtility::_GET('tx_powermail_pi1');
+		return $request['action'];
 	}
 }
