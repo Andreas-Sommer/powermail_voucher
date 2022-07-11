@@ -8,6 +8,8 @@
 
 namespace Belsignum\PowermailVoucher\DataProcessor;
 
+use Belsignum\PowermailVoucher\Domain\Model\Field;
+use Belsignum\PowermailVoucher\Domain\Model\Voucher;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository;
 use Belsignum\PowermailVoucher\Utility\VoucherUtility;
@@ -18,21 +20,22 @@ class RequestVoucherDataProcessor extends AbstractDataProcessor
 	/**
 	 * voucherField
 	 *
-	 * @var \Belsignum\PowermailVoucher\Domain\Model\Field
+	 * @var Field
 	 */
 	protected $voucherField;
 
 	/**
 	 * voucherRepository
 	 *
-	 * @var \Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository
+	 * @var VoucherRepository
 	 */
 	protected $voucherRepository;
 
 	/**
-	 * @param \Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository $voucherRepository
+	 * @param VoucherRepository $voucherRepository
+	 * @return void
 	 */
-	public function injectVoucherRepository(VoucherRepository $voucherRepository)
+	public function injectVoucherRepository(VoucherRepository $voucherRepository): void
 	{
 		$this->voucherRepository = $voucherRepository;
 	}
@@ -42,13 +45,13 @@ class RequestVoucherDataProcessor extends AbstractDataProcessor
 	 *
 	 * @return void
 	 */
-	public function voucherDataProcessor()
+	public function voucherDataProcessor(): void
 	{
 		if($this->check())
 		{
 			$this->voucherField = VoucherUtility::getVoucherField($this->mail);
 			if ($this->voucherField) {
-				/** @var \Belsignum\PowermailVoucher\Domain\Model\Voucher $voucher */
+				/** @var Voucher $voucher */
 				$voucher
 					= $this->voucherRepository->findOneUnusedByCampaign($this->voucherField->getCampaign());
 				if ( ! $voucher) {
@@ -67,7 +70,7 @@ class RequestVoucherDataProcessor extends AbstractDataProcessor
 	 *
 	 * @return bool
 	 */
-	protected function check()
+	protected function check(): bool
 	{
 		if(
 			$this->settings['main']['optin'] !== '1'
@@ -93,7 +96,7 @@ class RequestVoucherDataProcessor extends AbstractDataProcessor
 	 *
 	 * @return string
 	 */
-	protected function getOriginAction()
+	protected function getOriginAction(): string
 	{
 		$request = GeneralUtility::_GET('tx_powermail_pi1');
 		return $request['action'];

@@ -15,22 +15,19 @@ return [
         'searchFields' => 'title,vouchers',
         'iconfile' => 'EXT:powermail_voucher/Resources/Public/Icons/icon.svg'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'hidden, vouchers, title',
-    ],
     'types' => [
-        '1' => ['showitem' => 'title, vouchers, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, starttime, endtime'],
+        '1' => ['showitem' => 'title,vouchers,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,hidden,starttime,endtime'],
     ],
     'columns' => [
 
         'hidden' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
                 'items' => [
                     '1' => [
-                        '0' => 'LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.enabled'
+                        '0' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled'
                     ]
                 ],
             ],
@@ -40,7 +37,7 @@ return [
             'behaviour' => [
                 'allowLanguageSynchronization' => true
             ],
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -54,7 +51,7 @@ return [
             'behaviour' => [
                 'allowLanguageSynchronization' => true
             ],
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',

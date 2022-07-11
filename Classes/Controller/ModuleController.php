@@ -9,11 +9,18 @@
 namespace Belsignum\PowermailVoucher\Controller;
 
 
+use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 
 class ModuleController extends AbstractController
 {
-	public function listAction()
+
+	/**
+	 * @return void
+	 * @throws NoSuchArgumentException
+	 */
+	public function listAction(): void
 	{
 		$campaigns = $this->campaignRepository->findAll();
 		if(
@@ -34,11 +41,10 @@ class ModuleController extends AbstractController
 	 * import bulk data
 	 *
 	 * @return void
-	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
-	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
+	 * @throws NoSuchArgumentException
+	 * @throws StopActionException
 	 */
-	public function importAction()
+	public function importAction(): void
 	{
 		$pid = (int) $GLOBALS['_GET']['id'];
 		$campaigns = $this->campaignRepository->findAll();
@@ -65,8 +71,4 @@ class ModuleController extends AbstractController
 			$this->addFlashMessage('Import complete', 'Success', AbstractMessage::OK);
 		}
 	}
-
-
-
-
 }

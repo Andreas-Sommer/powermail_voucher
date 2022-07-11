@@ -7,26 +7,27 @@ namespace Belsignum\PowermailVoucher\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  *  (c) 2019 Andreas Sommer <sommer@belsignum.com>, Belsignum UG
  ***/
-
+use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Campaign
  */
-class Campaign extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Campaign extends AbstractEntity
 {
     /**
-     * title
-     *
-     * @var string
-     * @validate NotEmpty
-     */
-    protected $title = '';
+	 * title
+	 *
+	 * @var string
+	 * @Extbase\Validate("NotEmpty")
+	 */
+	protected $title = '';
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Belsignum\PowermailVoucher\Domain\Model\Voucher>
+	 * @var ObjectStorage<Voucher>
 	 */
-    protected $vouchers;
+	protected $vouchers;
 
 	/**
 	 * __construct
@@ -41,7 +42,7 @@ class Campaign extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 *
 	 * @return void
 	 */
-	protected function initStorageObjects()
+	protected function initStorageObjects(): void
 	{
 		$this->vouchers = new ObjectStorage();
 	}
@@ -51,8 +52,8 @@ class Campaign extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $title
      */
-    public function getTitle()
-    {
+    public function getTitle(): string
+	{
         return $this->title;
     }
 
@@ -62,24 +63,24 @@ class Campaign extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $title
      * @return void
      */
-    public function setTitle($title)
+    public function setTitle($title): void
     {
         $this->title = $title;
     }
 
 	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Belsignum\PowermailVoucher\Domain\Model\Voucher>
+	 * @return ObjectStorage<Voucher>
 	 */
-	public function getVouchers(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+	public function getVouchers(): ObjectStorage
 	{
 		return $this->vouchers;
 	}
 
 	/**
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Belsignum\PowermailVoucher\Domain\Model\Voucher> $vouchers
+	 * @param ObjectStorage<Voucher> $vouchers
 	 */
 	public function setVouchers(
-		\TYPO3\CMS\Extbase\Persistence\ObjectStorage $vouchers
+		ObjectStorage $vouchers
 	): void {
 		$this->vouchers = $vouchers;
 	}

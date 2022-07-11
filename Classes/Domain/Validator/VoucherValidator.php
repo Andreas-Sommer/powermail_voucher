@@ -8,6 +8,7 @@
 
 namespace Belsignum\PowermailVoucher\Domain\Validator;
 
+use Belsignum\PowermailVoucher\Domain\Model\Voucher;
 use Belsignum\PowermailVoucher\Utility\VoucherUtility;
 use Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository;
 use In2code\Powermail\Domain\Validator\AbstractValidator;
@@ -21,14 +22,15 @@ class VoucherValidator extends AbstractValidator
 	/**
 	 * voucherRepository
 	 *
-	 * @var \Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository
+	 * @var VoucherRepository
 	 */
 	protected $voucherRepository;
 
 	/**
-	 * @param \Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository $voucherRepository
+	 * @param VoucherRepository $voucherRepository
+	 * @return void
 	 */
-	public function injectVoucherRepository(VoucherRepository $voucherRepository)
+	public function injectVoucherRepository(VoucherRepository $voucherRepository): void
 	{
 		$this->voucherRepository = $voucherRepository;
 	}
@@ -39,12 +41,12 @@ class VoucherValidator extends AbstractValidator
 	 * @param Mail $mail
 	 * @return Result
 	 */
-	public function validate($mail)
+	public function validate($mail): Result
 	{
 		$result = new Result();
 		if($voucherField = VoucherUtility::getVoucherField($mail))
 		{
-			/** @var \Belsignum\PowermailVoucher\Domain\Model\Voucher $voucher */
+			/** @var Voucher $voucher */
 			$voucher = $this->voucherRepository->findOneUnusedByCampaign($voucherField->getCampaign());
 			if(!$voucher)
 			{

@@ -1,6 +1,8 @@
 <?php
 namespace Belsignum\PowermailVoucher\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 /***
  *
  * This file is part of the "Voucher request with Powermail" Extension for TYPO3 CMS.
@@ -11,11 +13,10 @@ namespace Belsignum\PowermailVoucher\Domain\Repository;
  *  (c) 2019 Andreas Sommer <sommer@belsignum.com>, Belsignum UG
  *
  ***/
-
 /**
  * The repository for Campaigns
  */
-class CampaignRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class CampaignRepository extends Repository
 {
 
 	/**
@@ -23,14 +24,14 @@ class CampaignRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	 *
 	 * @return object
 	 */
-	public function findByUid($uid)
+	public function findByUid($uid): object
 	{
 		$this->setIgnoreStoragePage();
 		return parent::findByUid($uid);
 	}
 
 	/**
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 * @return array|QueryResultInterface
 	 */
 	public function findAll()
 	{
@@ -43,7 +44,7 @@ class CampaignRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	 *
 	 * @return void
 	 */
-	protected function setIgnoreStoragePage()
+	protected function setIgnoreStoragePage(): void
 	{
 		$querySettings = $this->createQuery()
 							  ->getQuerySettings()

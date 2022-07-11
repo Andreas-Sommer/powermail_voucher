@@ -1,6 +1,9 @@
 <?php
 namespace Belsignum\PowermailVoucher\Domain\Model;
 
+use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use In2code\Powermail\Domain\Model\Mail;
 /***
  *
  * This file is part of the "Voucher request with Powermail" Extension for TYPO3 CMS.
@@ -11,33 +14,32 @@ namespace Belsignum\PowermailVoucher\Domain\Model;
  *  (c) 2019 Andreas Sommer <sommer@belsignum.com>, Belsignum UG
  *
  ***/
-
 /**
  * Voucher
  */
-class Voucher extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Voucher extends AbstractEntity
 {
     /**
-     * code
-     *
-     * @var string
-     * @validate NotEmpty
-     */
-    protected $code = '';
+	 * code
+	 *
+	 * @var string
+	 * @Extbase\Validate("NotEmpty")
+	 */
+	protected $code = '';
 
     /**
-     * campaign
-     *
-     * @var \Belsignum\PowermailVoucher\Domain\Model\Campaign
-     */
-    protected $campaign = null;
+	 * campaign
+	 *
+	 * @var Campaign
+	 */
+	protected $campaign = null;
 
     /**
-     * mail
-     *
-     * @var \In2code\Powermail\Domain\Model\Mail
-     */
-    protected $mail = null;
+	 * mail
+	 *
+	 * @var Mail
+	 */
+	protected $mail = null;
 
     /**
      * Returns the code
@@ -61,41 +63,40 @@ class Voucher extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the campaign
-     *
-     * @return \Belsignum\PowermailVoucher\Domain\Model\Campaign $campaign
-     */
-    public function getCampaign()
-    {
+	 * Returns the campaign
+	 *
+	 * @return Campaign|null $campaign
+	 */
+	public function getCampaign(): ?Campaign
+	{
         return $this->campaign;
     }
 
     /**
-     * Sets the campaign
-     *
-     * @param \Belsignum\PowermailVoucher\Domain\Model\Campaign $campaign
-     * @return void
-     */
-    public function setCampaign(\Belsignum\PowermailVoucher\Domain\Model\Campaign $campaign)
+	 * Sets the campaign
+	 *
+	 * @param Campaign $campaign
+	 * @return void
+	 */
+	public function setCampaign(Campaign $campaign): void
     {
         $this->campaign = $campaign;
     }
 
 	/**
-	 * @return \In2code\Powermail\Domain\Model\Mail
+	 * @return Mail|null
 	 */
-	public function getMail(): ?\In2code\Powermail\Domain\Model\Mail
+	public function getMail(): ?Mail
 	{
 		return $this->mail;
 	}
 
 	/**
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 */
-	public function setMail(\In2code\Powermail\Domain\Model\Mail $mail): void
+	public function setMail(Mail $mail): void
 	{
 		$this->mail = $mail;
 	}
-
 
 }

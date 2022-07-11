@@ -1,6 +1,8 @@
 <?php
 namespace Belsignum\PowermailVoucher\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Core\Database\Connection;
 use Belsignum\PowermailVoucher\Domain\Model\Campaign;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -15,23 +17,20 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * The repository for Vouchers
  */
-class VoucherRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class VoucherRepository extends Repository
 {
 	/**
-	 * @param \Belsignum\PowermailVoucher\Domain\Model\Campaign $campaign
+	 * @param Campaign $campaign
 	 *
 	 * @return object
 	 */
-	public function findOneUnusedByCampaign(Campaign $campaign)
+	public function findOneUnusedByCampaign(Campaign $campaign): object
 	{
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 
 		$query->matching(
-			$query->logicalAnd(
-				$query->equals('campaign', $campaign->getUid()),
-				$query->equals('mail', 0)
-			)
+			$query->logicalAnd([$query->equals('campaign', $campaign->getUid()), $query->equals('mail', 0)])
 		);
 		return $query->execute()->getFirst();
 	}
@@ -40,8 +39,9 @@ class VoucherRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	 * @param array $codes
 	 * @param int $campaignID
 	 * @param int $pid
+	 * @return void
 	 */
-	public function import(array $codes, $campaignID, $pid)
+	public function import(array $codes, $campaignID, $pid): void
 	{
 		$importData = [];
 		foreach ($codes as $_ => $code)
@@ -54,7 +54,7 @@ class VoucherRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 		}
 
 		$table = 'tx_powermailvoucher_domain_model_voucher';
-		/** @var \TYPO3\CMS\Core\Database\Connection $databaseConnection */
+		/** @var Connection $databaseConnection */
 		$databaseConnection = GeneralUtility::makeInstance(ConnectionPool::class)
 											->getConnectionForTable($table);
 		$databaseConnection->bulkInsert(

@@ -18,12 +18,12 @@ call_user_func(
 
 		// Module System > Backend Users
 		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-			'Belsignum.PowermailVoucher',
-			'web',
+			'PowermailVoucher',
+			'tools',
 			'voucher',
 			'',
 			[
-				'Module' => 'list, import',
+				\Belsignum\PowermailVoucher\Controller\ModuleController::class => 'list, import',
 			],
 			[
 				'access' => 'user,group',

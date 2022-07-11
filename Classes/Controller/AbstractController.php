@@ -8,47 +8,51 @@
 
 namespace Belsignum\PowermailVoucher\Controller;
 
+use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Belsignum\PowermailVoucher\Domain\Repository\CampaignRepository;
 use Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 
-class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class AbstractController extends ActionController
 {
 	/**
 	 * Backend Template Container
 	 *
 	 * @var string
 	 */
-	protected $defaultViewObjectName = \TYPO3\CMS\Backend\View\BackendTemplateView::class;
+	protected $defaultViewObjectName = BackendTemplateView::class;
 
 	/**
 	 * campaignRepository
 	 *
-	 * @var \Belsignum\PowermailVoucher\Domain\Repository\CampaignRepository
+	 * @var CampaignRepository
 	 */
 	protected $campaignRepository;
 
 	/**
 	 * voucherRepository
 	 *
-	 * @var \Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository
+	 * @var VoucherRepository
 	 */
 	protected $voucherRepository;
 
 	/**
-	 * @param \Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository $voucherRepository
+	 * @param VoucherRepository $voucherRepository
+	 * @return void
 	 */
-	public function injectVoucherRepository(VoucherRepository $voucherRepository)
+	public function injectVoucherRepository(VoucherRepository $voucherRepository): void
 	{
 		$this->voucherRepository = $voucherRepository;
 	}
 
 	/**
-	 * @param \Belsignum\PowermailVoucher\Domain\Repository\CampaignRepository $campaignRepository
+	 * @param CampaignRepository $campaignRepository
+	 * @return void
 	 */
-	public function injectCampaignRepository(CampaignRepository $campaignRepository)
+	public function injectCampaignRepository(CampaignRepository $campaignRepository): void
 	{
 		$this->campaignRepository = $campaignRepository;
 	}
@@ -59,7 +63,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @param ViewInterface $view
 	 * @return void
 	 */
-	protected function initializeView(ViewInterface $view)
+	protected function initializeView(ViewInterface $view): void
 	{
 		/** @var BackendTemplateView $view */
 		parent::initializeView($view);
@@ -70,9 +74,10 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	}
 
 	/**
-	 * Generates the action menu
+	 * Generates the menu
+	 * @return void
 	 */
-	protected function generateMenu()
+	protected function generateMenu(): void
 	{
 		$menuItems = [
 			'list' => [
@@ -94,7 +99,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 		foreach ($menuItems as  $menuItemConfig) {
 			if ($this->request->getControllerName() === $menuItemConfig['controller']) {
-				$isActive = $this->request->getControllerActionName() === $menuItemConfig['action'] ? true : false;
+				$isActive = $this->request->getControllerActionName() === $menuItemConfig['action'];
 			} else {
 				$isActive = false;
 			}
@@ -114,10 +119,11 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 *
 	 * @param string $controller
 	 * @param string $action
-	 * @param array $parameters
+	 * @param array  $parameters
+	 *
 	 * @return string
 	 */
-	protected function getHref($controller, $action, $parameters = [])
+	protected function getHref(string $controller, string $action, array $parameters = []): string
 	{
 		$uriBuilder = $this->objectManager->get(UriBuilder::class);
 		$uriBuilder->setRequest($this->request);
@@ -127,7 +133,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	/**
 	 * @return LanguageService
 	 */
-	protected function getLanguageService()
+	protected function getLanguageService(): LanguageService
 	{
 		return $GLOBALS['LANG'];
 	}

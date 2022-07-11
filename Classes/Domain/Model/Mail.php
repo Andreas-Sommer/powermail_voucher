@@ -7,24 +7,24 @@ namespace Belsignum\PowermailVoucher\Domain\Model;
 class Mail extends \In2code\Powermail\Domain\Model\Mail
 {
     /**
-     * @var \Belsignum\PowermailVoucher\Domain\Model\Voucher
-     */
-    protected $voucher = null;
+	 * @var Voucher
+	 */
+	protected $voucher = null;
 
 	/**
-	 * @return \Belsignum\PowermailVoucher\Domain\Model\Voucher
+	 * @return Voucher
 	 */
 	public function getVoucher(
-	): \Belsignum\PowermailVoucher\Domain\Model\Voucher
+	): Voucher
 	{
 		return $this->voucher;
 	}
 
 	/**
-	 * @param \Belsignum\PowermailVoucher\Domain\Model\Voucher $voucher
+	 * @param Voucher $voucher
 	 */
 	public function setVoucher(
-		\Belsignum\PowermailVoucher\Domain\Model\Voucher $voucher
+		Voucher $voucher
 	): void {
 		$this->voucher = $voucher;
 	}

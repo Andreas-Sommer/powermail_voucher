@@ -10,9 +10,6 @@ return [
         'searchFields' => 'code,campaign,mail',
         'iconfile' => 'EXT:powermail_voucher/Resources/Public/Icons/icon.svg'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'code, campaign, mail',
-    ],
     'types' => [
         '1' => ['showitem' => 'code, campaign, mail'],
     ],

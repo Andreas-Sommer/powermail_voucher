@@ -8,6 +8,7 @@
 
 namespace Belsignum\PowermailVoucher\Utility;
 
+use Belsignum\PowermailVoucher\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 
 class VoucherUtility
@@ -15,16 +16,16 @@ class VoucherUtility
 	/**
 	 * Get voucher field
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 *
-	 * @return \Belsignum\PowermailVoucher\Domain\Model\Field|null
+	 * @return Field|null
 	 */
-	public static function getVoucherField(Mail $mail)
+	public static function getVoucherField(Mail $mail): ?Field
 	{
 		$fields = $mail->getForm()->getFields();
 
 		/**
-		 * @var \Belsignum\PowermailVoucher\Domain\Model\Field $field
+		 * @var Field $field
 		 */
 		foreach ($fields as $_ => $field)
 		{
