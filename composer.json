@@ -1,6 +1,7 @@
 {
     "name": "belsignum/powermail-voucher",
     "type": "typo3-cms-extension",
+    "version": "1.0.6",
     "description": "Add campaigns with voucher codes to request them with a powermail form.\nLet's imagine your client needs to provide voucher or ticket codes for fairs, now you can provide them with a Powermail form",
     "authors": [
         {
