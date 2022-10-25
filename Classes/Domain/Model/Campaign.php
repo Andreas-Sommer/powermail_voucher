@@ -34,7 +34,7 @@ class Campaign extends AbstractEntity
 	 */
 	public function __construct()
 	{
-		$this->initStorageObjects();
+		$this->initializeObject();
 	}
 
 	/**
@@ -42,9 +42,9 @@ class Campaign extends AbstractEntity
 	 *
 	 * @return void
 	 */
-	protected function initStorageObjects(): void
+	public function initializeObject(): void
 	{
-		$this->vouchers = new ObjectStorage();
+		$this->setVouchers(new ObjectStorage);
 	}
 
     /**
