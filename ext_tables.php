@@ -14,20 +14,24 @@ call_user_func(
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_powermailvoucher_domain_model_voucher', 'EXT:powermail_voucher/Resources/Private/Language/locallang_csh_tx_powermailvoucher_domain_model_voucher.xlf');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_powermailvoucher_domain_model_voucher');
 
-		// Module System > Backend Users
-		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-			'PowermailVoucher',
-			'tools',
-			'voucher',
-			'',
-			[
-				\Belsignum\PowermailVoucher\Controller\ModuleController::class => 'list, import',
-			],
-			[
-				'access' => 'user,group',
-				'icon' => 'EXT:powermail_voucher/Resources/Public/Icons/Extension.svg',
-				'labels' => 'LLL:EXT:powermail_voucher/Resources/Private/Language/locallang_mod.xlf',
-			]
-		);
+
+        if (TYPO3_MODE === 'BE')
+        {
+            // Module System > Backend Users
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+                'PowermailVoucher',
+                'system',
+                'tx_powermailvoucher',
+                'bottom',
+                [
+                    \Belsignum\PowermailVoucher\Controller\ModuleController::class => 'list, import',
+                ],
+                [
+                    'access' => 'user,group',
+                    'icon' => 'EXT:powermail_voucher/Resources/Public/Icons/Extension.svg',
+                    'labels' => 'LLL:EXT:powermail_voucher/Resources/Private/Language/locallang_mod.xlf',
+                ]
+            );
+        }
     }
 );
