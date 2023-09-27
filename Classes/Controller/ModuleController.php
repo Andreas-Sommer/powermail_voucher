@@ -58,7 +58,7 @@ class ModuleController extends AbstractController
 				$this->redirect('import');
 			}
 
-			$tmpFile = $_FILES['tx_powermailvoucher_web_powermailvouchervoucher']['tmp_name']['fileupload']['file'];
+			$tmpFile = $_FILES['tx_powermailvoucher_system_powermailvouchertxpowermailvoucher']['tmp_name']['fileupload']['file'];
 			$content = file_get_contents($tmpFile);
 			$codes = str_getcsv($content, \chr(10));
 
