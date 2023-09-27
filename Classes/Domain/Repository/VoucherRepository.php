@@ -1,9 +1,9 @@
 <?php
 namespace Belsignum\PowermailVoucher\Domain\Repository;
 
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Core\Database\Connection;
-use Belsignum\PowermailVoucher\Domain\Model\Campaign;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -20,11 +20,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class VoucherRepository extends Repository
 {
 	/**
-	 * @param Campaign $campaign
+	 * @param DomainObjectInterface $campaign
 	 *
 	 * @return object
 	 */
-	public function findOneUnusedByCampaign(Campaign $campaign): object
+	public function findOneUnusedByCampaign(DomainObjectInterface $campaign): object
 	{
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
