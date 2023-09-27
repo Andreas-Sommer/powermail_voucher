@@ -10,9 +10,12 @@ namespace Belsignum\PowermailVoucher\Utility;
 
 use Belsignum\PowermailVoucher\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 
 class VoucherUtility
 {
+    private const VOUCHER_CAMPAIGN = 'voucher_campaign';
+
 	/**
 	 * Get voucher field
 	 *
@@ -20,7 +23,7 @@ class VoucherUtility
 	 *
 	 * @return Field|null
 	 */
-	public static function getVoucherField(Mail $mail): ?Field
+	public static function getVoucherField(Mail $mail): ?DomainObjectInterface
 	{
 		$fields = $mail->getForm()->getFields();
 
@@ -29,7 +32,7 @@ class VoucherUtility
 		 */
 		foreach ($fields as $_ => $field)
 		{
-			if($field->getType() === 'voucher_campaign')
+			if($field->getType() === self::VOUCHER_CAMPAIGN)
 			{
 				return $field;
 			}
