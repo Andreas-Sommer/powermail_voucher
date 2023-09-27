@@ -9,6 +9,9 @@ $tempPowermailvoucherFieldColumns = [
 		'config' => [
 			'type' => 'select',
 			'renderType' => 'selectSingle',
+            'behaviour' => [
+                'allowLanguageSynchronization' => true
+            ],
 			'foreign_table' => 'tx_powermailvoucher_domain_model_campaign',
 			'items' => [
 				['LLL:EXT:powermail_voucher/Resources/Private/Language/locallang_db.xlf:tx_powermailvoucher_domain_model_field.select_campaign', 0]
