@@ -22,30 +22,30 @@ class Campaign extends AbstractEntity
 	 * @var string
 	 * @Extbase\Validate("NotEmpty")
 	 */
-	protected $title = '';
+    protected $title = '';
 
-	/**
-	 * @var ObjectStorage<Voucher>
-	 */
-	protected $vouchers;
+    /**
+     * @var ObjectStorage<Voucher>
+     */
+    protected $vouchers;
 
-	/**
-	 * __construct
-	 */
-	public function __construct()
-	{
-		$this->initializeObject();
-	}
+    /**
+     * __construct
+     */
+    public function __construct()
+    {
+        $this->initializeObject();
+    }
 
-	/**
-	 * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-	 *
-	 * @return void
-	 */
-	public function initializeObject(): void
-	{
-		$this->setVouchers(new ObjectStorage);
-	}
+    /**
+     * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
+     *
+     * @return void
+     */
+    public function initializeObject(): void
+    {
+        $this->setVouchers(new ObjectStorage);
+    }
 
     /**
      * Returns the title
@@ -53,7 +53,7 @@ class Campaign extends AbstractEntity
      * @return string $title
      */
     public function getTitle(): string
-	{
+    {
         return $this->title;
     }
 
@@ -68,22 +68,20 @@ class Campaign extends AbstractEntity
         $this->title = $title;
     }
 
-	/**
-	 * @return ObjectStorage<Voucher>
-	 */
-	public function getVouchers(): ObjectStorage
-	{
-		return $this->vouchers;
-	}
+    /**
+     * @return ObjectStorage<Voucher>
+     */
+    public function getVouchers(): ObjectStorage
+    {
+        return $this->vouchers;
+    }
 
-	/**
-	 * @param ObjectStorage<Voucher> $vouchers
-	 */
-	public function setVouchers(
-		ObjectStorage $vouchers
-	): void {
-		$this->vouchers = $vouchers;
-	}
-
-
+    /**
+     * @param ObjectStorage<Voucher> $vouchers
+     */
+    public function setVouchers(
+        ObjectStorage $vouchers
+    ): void {
+        $this->vouchers = $vouchers;
+    }
 }

@@ -3,8 +3,7 @@
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(
-    function ()
-    {
+    function () {
         if (TYPO3_MODE == "BE")
         {
             /** @var \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer */

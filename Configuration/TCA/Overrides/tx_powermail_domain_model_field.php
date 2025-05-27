@@ -24,8 +24,8 @@ $tempPowermailvoucherFieldColumns = [
 ];
 ExtensionManagementUtility::addTCAcolumns('tx_powermail_domain_model_field', $tempPowermailvoucherFieldColumns);
 ExtensionManagementUtility::addToAllTCAtypes(
-	'tx_powermail_domain_model_field',
-	'--div--;LLL:EXT:powermail_voucher/Resources/Private/Language/locallang_db.xlf:tx_powermailvoucher_domain_model_voucher.campaign, tx_powermailvoucher_campaign',
-	'',
-	'after:own_marker_select'
+    'tx_powermail_domain_model_field',
+    '--div--;LLL:EXT:powermail_voucher/Resources/Private/Language/locallang_db.xlf:tx_powermailvoucher_domain_model_voucher.campaign, tx_powermailvoucher_campaign',
+    '',
+    'after:own_marker_select'
 );

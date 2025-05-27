@@ -16,27 +16,27 @@ class VoucherUtility
 {
     private const VOUCHER_CAMPAIGN = 'voucher_campaign';
 
-	/**
-	 * Get voucher field
-	 *
-	 * @param Mail $mail
-	 *
-	 * @return Field|null
-	 */
-	public static function getVoucherField(Mail $mail): ?DomainObjectInterface
-	{
-		$fields = $mail->getForm()->getFields();
+    /**
+     * Get voucher field
+     *
+     * @param Mail $mail
+     *
+     * @return Field|null
+     */
+    public static function getVoucherField(Mail $mail): ?DomainObjectInterface
+    {
+        $fields = $mail->getForm()->getFields();
 
-		/**
-		 * @var Field $field
-		 */
-		foreach ($fields as $_ => $field)
-		{
-			if($field->getType() === self::VOUCHER_CAMPAIGN)
-			{
-				return $field;
-			}
-		}
-		return NULL;
-	}
+        /**
+         * @var Field $field
+         */
+        foreach ($fields as $_ => $field)
+        {
+            if ($field->getType() === self::VOUCHER_CAMPAIGN)
+            {
+                return $field;
+            }
+        }
+        return NULL;
+    }
 }

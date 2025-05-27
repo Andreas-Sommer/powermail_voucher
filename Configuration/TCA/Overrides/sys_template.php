@@ -7,7 +7,7 @@ defined('TYPO3_MODE') or die();
  * Add static file
  */
 ExtensionManagementUtility::addStaticFile(
-	'powermail_voucher',
-	'Configuration/TypoScript',
-	'Powermail Voucher'
+    'powermail_voucher',
+    'Configuration/TypoScript',
+    'Powermail Voucher'
 );

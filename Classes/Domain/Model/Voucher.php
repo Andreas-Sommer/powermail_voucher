@@ -25,21 +25,21 @@ class Voucher extends AbstractEntity
 	 * @var string
 	 * @Extbase\Validate("NotEmpty")
 	 */
-	protected $code = '';
+    protected $code = '';
 
     /**
 	 * campaign
 	 *
 	 * @var Campaign
 	 */
-	protected $campaign = null;
+    protected $campaign = null;
 
     /**
 	 * mail
 	 *
 	 * @var Mail
 	 */
-	protected $mail = null;
+    protected $mail = null;
 
     /**
      * Returns the code
@@ -67,8 +67,8 @@ class Voucher extends AbstractEntity
 	 *
 	 * @return Campaign|null $campaign
 	 */
-	public function getCampaign(): ?Campaign
-	{
+    public function getCampaign(): ?Campaign
+    {
         return $this->campaign;
     }
 
@@ -78,25 +78,24 @@ class Voucher extends AbstractEntity
 	 * @param Campaign $campaign
 	 * @return void
 	 */
-	public function setCampaign(Campaign $campaign): void
+    public function setCampaign(Campaign $campaign): void
     {
         $this->campaign = $campaign;
     }
 
-	/**
-	 * @return Mail|null
-	 */
-	public function getMail(): ?Mail
-	{
-		return $this->mail;
-	}
+    /**
+     * @return Mail|null
+     */
+    public function getMail(): ?Mail
+    {
+        return $this->mail;
+    }
 
-	/**
-	 * @param Mail $mail
-	 */
-	public function setMail(Mail $mail): void
-	{
-		$this->mail = $mail;
-	}
-
+    /**
+     * @param Mail $mail
+     */
+    public function setMail(Mail $mail): void
+    {
+        $this->mail = $mail;
+    }
 }

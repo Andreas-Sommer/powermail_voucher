@@ -2,8 +2,7 @@
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(
-    function()
-    {
+    function() {
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
             "@import 'EXT:powermail_voucher/Configuration/TsConfig/config.tsconfig'"
         );
@@ -13,7 +12,6 @@ call_user_func(
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_powermailvoucher_domain_model_voucher', 'EXT:powermail_voucher/Resources/Private/Language/locallang_csh_tx_powermailvoucher_domain_model_voucher.xlf');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_powermailvoucher_domain_model_voucher');
-
 
         if (TYPO3_MODE === 'BE')
         {

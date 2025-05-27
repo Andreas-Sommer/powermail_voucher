@@ -11,23 +11,22 @@ class Field extends \In2code\Powermail\Domain\Model\Field
 	 *
 	 * @var Campaign
 	 */
-	protected $campaign = null;
+    protected $campaign = null;
 
-	/**
-	 * @return Campaign
-	 */
-	public function getCampaign(
-	): ?Campaign
-	{
-		return $this->campaign;
-	}
+    /**
+     * @return Campaign
+     */
+    public function getCampaign(
+	): ?Campaign {
+        return $this->campaign;
+    }
 
-	/**
-	 * @param Campaign $campaign
-	 */
-	public function setCampaign(
-		Campaign $campaign
-	): void {
-		$this->campaign = $campaign;
-	}
+    /**
+     * @param Campaign $campaign
+     */
+    public function setCampaign(
+        Campaign $campaign
+    ): void {
+        $this->campaign = $campaign;
+    }
 }
