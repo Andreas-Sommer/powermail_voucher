@@ -10,10 +10,10 @@ namespace Belsignum\PowermailVoucher\DataProcessor;
 
 use Belsignum\PowermailVoucher\Domain\Model\Field;
 use Belsignum\PowermailVoucher\Domain\Model\Voucher;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository;
 use Belsignum\PowermailVoucher\Utility\VoucherUtility;
 use In2code\Powermail\DataProcessor\AbstractDataProcessor;
+use Psr\Http\Message\ServerRequestInterface;
 
 class RequestVoucherDataProcessor extends AbstractDataProcessor
 {
@@ -32,7 +32,6 @@ class RequestVoucherDataProcessor extends AbstractDataProcessor
     protected $voucherRepository;
 
     /**
-     * @param VoucherRepository $voucherRepository
      * @return void
      */
     public function injectVoucherRepository(VoucherRepository $voucherRepository): void
@@ -98,7 +97,14 @@ class RequestVoucherDataProcessor extends AbstractDataProcessor
      */
     protected function getOriginAction(): string
     {
-        $request = GeneralUtility::_GET('tx_powermail_pi1');
-        return $request['action'];
+        $request = $GLOBALS['TYPO3_REQUEST'] ?? null;
+        if (!$request instanceof ServerRequestInterface) {
+            return '';
+        }
+        $powermailArguments = $request->getQueryParams()['tx_powermail_pi1'] ?? [];
+        if (!\is_array($powermailArguments)) {
+            return '';
+        }
+        return (string)($powermailArguments['action'] ?? '');
     }
 }

@@ -19,9 +19,6 @@ class Mail extends \In2code\Powermail\Domain\Model\Mail
         return $this->voucher;
     }
 
-    /**
-     * @param Voucher $voucher
-     */
     public function setVoucher(
         Voucher $voucher
     ): void {

@@ -73,11 +73,10 @@ class Voucher extends AbstractEntity
     }
 
     /**
-	 * Sets the campaign
-	 *
-	 * @param Campaign $campaign
-	 * @return void
-	 */
+     * Sets the campaign
+     *
+     * @return void
+     */
     public function setCampaign(Campaign $campaign): void
     {
         $this->campaign = $campaign;

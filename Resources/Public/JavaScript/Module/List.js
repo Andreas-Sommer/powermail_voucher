@@ -1,8 +1,6 @@
-define(
-	['jquery'],
-	function($) {
-		$('#campaign').on('change', function () {
-			$('#campaignList').submit();
-		});
-	}
-);
+const campaignSelectElement = document.querySelector('#campaign');
+const campaignListFormElement = document.querySelector('#campaignList');
+
+campaignSelectElement?.addEventListener('change', () => {
+    campaignListFormElement?.submit();
+});

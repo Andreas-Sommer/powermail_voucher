@@ -8,9 +8,11 @@
 
 namespace Belsignum\PowermailVoucher\Controller;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UploadedFileInterface;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
-use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
 
 class ModuleController extends AbstractController
 {
@@ -18,8 +20,16 @@ class ModuleController extends AbstractController
      * @return void
      * @throws NoSuchArgumentException
      */
-    public function listAction(): void
+    public function listAction(): ResponseInterface
     {
+        $moduleTemplate = $this->createModuleTemplate();
+        $moduleTemplate->setTitle(
+            $this->getLanguageService()->sL(
+                'LLL:EXT:powermail_voucher/Resources/Private/Language/locallang.xlf:tx_powermailvoucher_backend.voucher_list'
+            )
+        );
+
+        $campaign = null;
         $campaigns = $this->campaignRepository->findAll();
         if (
             $this->request->hasArgument('campaign')
@@ -28,35 +38,43 @@ class ModuleController extends AbstractController
             $campaign = $this->campaignRepository->findByUid($this->request->getArgument('campaign'));
         }
 
-        $this->view->assignMultiple([
+        $moduleTemplate->assignMultiple([
         	'campaigns' => $campaigns,
         	'campaign' => $campaign
         ]);
+        return $moduleTemplate->renderResponse('Module/List');
     }
 
     /**
      * import bulk data
      *
-     * @return void
+     * @return ResponseInterface
      * @throws NoSuchArgumentException
-     * @throws StopActionException
      */
-    public function importAction(): void
+    public function importAction(): ResponseInterface
     {
-        $pid = (int) $GLOBALS['_GET']['id'];
+        $moduleTemplate = $this->createModuleTemplate();
+        $moduleTemplate->setTitle(
+            $this->getLanguageService()->sL(
+                'LLL:EXT:powermail_voucher/Resources/Private/Language/locallang.xlf:tx_powermailvoucher_backend.import'
+            )
+        );
+
+        $request = $GLOBALS['TYPO3_REQUEST'] ?? null;
+        $pid = 0;
+        if ($request instanceof ServerRequestInterface) {
+            $pid = (int)($request->getQueryParams()['id'] ?? 0);
+        }
         $campaigns = $this->campaignRepository->findAll();
-        $this->view->assign('campaigns', $campaigns);
+        $moduleTemplate->assign('campaigns', $campaigns);
 
         if ($this->request->hasArgument('campaign'))
         {
-            if (!$this->request->hasArgument('fileupload'))
-            {
-                $this->addFlashMessage('No file to import!', 'Error', AbstractMessage::ERROR);
-                $this->redirect('import');
+            $content = $this->readUploadedCsvContent($request);
+            if ($content === null) {
+                $this->addFlashMessage('No file to import!', 'Error', ContextualFeedbackSeverity::ERROR);
+                return $this->redirect('import');
             }
-
-            $tmpFile = $_FILES['tx_powermailvoucher_system_powermailvouchertxpowermailvoucher']['tmp_name']['fileupload']['file'];
-            $content = file_get_contents($tmpFile);
             $codes = str_getcsv($content, \chr(10));
 
             $this->voucherRepository->import(
@@ -65,7 +83,24 @@ class ModuleController extends AbstractController
                 $pid
             );
 
-            $this->addFlashMessage('Import complete', 'Success', AbstractMessage::OK);
+            $this->addFlashMessage('Import complete', 'Success', ContextualFeedbackSeverity::OK);
         }
+
+        return $moduleTemplate->renderResponse('Module/Import');
+    }
+
+    private function readUploadedCsvContent(?ServerRequestInterface $request): ?string
+    {
+        if (!$request instanceof ServerRequestInterface) {
+            return null;
+        }
+        $uploadedFile = $request->getUploadedFiles()['file'] ?? null;
+        if (!$uploadedFile instanceof UploadedFileInterface || $uploadedFile->getError() !== \UPLOAD_ERR_OK) {
+            return null;
+        }
+        $stream = $uploadedFile->getStream();
+        $stream->rewind();
+        $content = $stream->getContents();
+        return $content !== '' ? $content : null;
     }
 }

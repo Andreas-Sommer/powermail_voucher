@@ -20,8 +20,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class VoucherRepository extends Repository
 {
     /**
-     * @param DomainObjectInterface $campaign
-     *
      * @return object
      */
     public function findOneUnusedByCampaign(DomainObjectInterface $campaign): object
@@ -36,7 +34,6 @@ class VoucherRepository extends Repository
     }
 
     /**
-     * @param array $codes
      * @param int $campaignID
      * @param int $pid
      * @return void

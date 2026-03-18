@@ -21,9 +21,6 @@ class Field extends \In2code\Powermail\Domain\Model\Field
         return $this->campaign;
     }
 
-    /**
-     * @param Campaign $campaign
-     */
     public function setCampaign(
         Campaign $campaign
     ): void {

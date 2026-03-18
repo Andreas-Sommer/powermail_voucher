@@ -5,7 +5,6 @@ return [
         'label' => 'code',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
 
         'searchFields' => 'code,campaign,mail',
         'iconfile' => 'EXT:powermail_voucher/Resources/Public/Icons/icon.svg'
@@ -20,7 +19,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true
             ],
         ],
         'campaign' => [
@@ -31,7 +31,7 @@ return [
 				'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_powermailvoucher_domain_model_campaign',
 				'items' => [
-					['LLL:EXT:powermail_voucher/Resources/Private/Language/locallang_db.xlf:tx_powermailvoucher_domain_model_voucher.select_campaign', 0]
+					['label' => 'LLL:EXT:powermail_voucher/Resources/Private/Language/locallang_db.xlf:tx_powermailvoucher_domain_model_voucher.select_campaign', 'value' => 0]
 				],
 				'default' => 0,
                 'minitems' => 0,

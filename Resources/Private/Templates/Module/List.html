@@ -1,10 +1,7 @@
-<f:layout name="Backend" />
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Module" />
 
-<f:section name="headline">
-	<h1><f:translate key="tx_powermailvoucher_backend.voucher_list">Voucher list</f:translate></h1>
-</f:section>
-
-<f:section name="content">
+<f:section name="Content">
 
 
 	<f:form id="campaignList" action="list">
@@ -34,8 +31,9 @@
 			</div>
 		</f:then>
 		<f:else>
-			<f:format.html><f:translate key="tx_powermailvoucher_backend.no_campaign">No campaign selected</f:translate></f:format.html>
+			<f:translate key="tx_powermailvoucher_backend.no_campaign">No campaign selected</f:translate>
 		</f:else>
 	</f:if>
 
 </f:section>
+</html>

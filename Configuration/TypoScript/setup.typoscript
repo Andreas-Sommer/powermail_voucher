@@ -27,20 +27,3 @@ plugin.tx_powermail {
     }
   }
 }
-
-module.tx_powermailvoucher {
-  view {
-    templateRootPaths {
-      10 = EXT:powermail_voucher/Resources/Private/Backend/Templates/
-    }
-
-    partialRootPaths {
-      10 = EXT:powermail_voucher/Resources/Private/Backend/Partials/
-    }
-
-    layoutRootPaths {
-      10 = EXT:powermail_voucher/Resources/Private/Backend/Layouts/
-    }
-
-  }
-}

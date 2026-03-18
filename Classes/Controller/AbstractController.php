@@ -8,23 +8,17 @@
 
 namespace Belsignum\PowermailVoucher\Controller;
 
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
+use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Belsignum\PowermailVoucher\Domain\Repository\CampaignRepository;
 use Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use TYPO3\CMS\Backend\View\BackendTemplateView;
-use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
+use TYPO3Fluid\Fluid\View\ViewInterface;
 
 class AbstractController extends ActionController
 {
-    /**
-     * Backend Template Container
-     *
-     * @var string
-     */
-    protected $defaultViewObjectName = BackendTemplateView::class;
-
     /**
      * campaignRepository
      *
@@ -38,9 +32,11 @@ class AbstractController extends ActionController
      * @var VoucherRepository
      */
     protected $voucherRepository;
+    public function __construct(private readonly ModuleTemplateFactory $moduleTemplateFactory, private readonly PageRenderer $pageRenderer)
+    {
+    }
 
     /**
-     * @param VoucherRepository $voucherRepository
      * @return void
      */
     public function injectVoucherRepository(VoucherRepository $voucherRepository): void
@@ -49,7 +45,6 @@ class AbstractController extends ActionController
     }
 
     /**
-     * @param CampaignRepository $campaignRepository
      * @return void
      */
     public function injectCampaignRepository(CampaignRepository $campaignRepository): void
@@ -65,20 +60,26 @@ class AbstractController extends ActionController
      */
     protected function initializeView(ViewInterface $view): void
     {
-        /** @var BackendTemplateView $view */
-        parent::initializeView($view);
-        $this->generateMenu();
-        if ($view instanceof BackendTemplateView)
+        $this->pageRenderer->loadJavaScriptModule('@typo3/backend/modal.js');
+        if ($this->request->getControllerActionName() === 'list')
         {
-            $view->getModuleTemplate()->getPageRenderer()->loadRequireJsModule('TYPO3/CMS/Backend/Modal');
+            $this->pageRenderer->loadJavaScriptModule('@belsignum/powermail-voucher/Module/List.js');
         }
+    }
+
+    protected function createModuleTemplate(): ModuleTemplate
+    {
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->setFlashMessageQueue($this->getFlashMessageQueue());
+        $this->generateMenu($moduleTemplate);
+        return $moduleTemplate;
     }
 
     /**
      * Generates the menu
      * @return void
      */
-    protected function generateMenu(): void
+    protected function generateMenu(ModuleTemplate $moduleTemplate): void
     {
         $menuItems = [
         	'list' => [
@@ -92,10 +93,7 @@ class AbstractController extends ActionController
         		'label' => $this->getLanguageService()->sL('LLL:EXT:powermail_voucher/Resources/Private/Language/locallang.xlf:tx_powermailvoucher_backend.import')
         	],
         ];
-        $uriBuilder = $this->objectManager->get(UriBuilder::class);
-        $uriBuilder->setRequest($this->request);
-
-        $menu = $this->view->getModuleTemplate()->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
+        $menu = $moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
         $menu->setIdentifier('BackendUserModuleMenu');
 
         foreach ($menuItems as  $menuItemConfig)
@@ -115,21 +113,18 @@ class AbstractController extends ActionController
             $menu->addMenuItem($menuItem);
         }
 
-        $this->view->getModuleTemplate()->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
+        $moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
     }
 
     /**
      * Creates te URI for a backend action
      *
-     * @param string $controller
-     * @param string $action
-     * @param array  $parameters
      *
      * @return string
      */
     protected function getHref(string $controller, string $action, array $parameters = []): string
     {
-        $uriBuilder = $this->objectManager->get(UriBuilder::class);
+        $uriBuilder = clone $this->uriBuilder;
         $uriBuilder->setRequest($this->request);
         return $uriBuilder->reset()->uriFor($action, $parameters, $controller);
     }

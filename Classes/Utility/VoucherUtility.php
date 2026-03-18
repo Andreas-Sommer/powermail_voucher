@@ -19,7 +19,6 @@ class VoucherUtility
     /**
      * Get voucher field
      *
-     * @param Mail $mail
      *
      * @return Field|null
      */

@@ -27,7 +27,6 @@ class VoucherValidator extends AbstractValidator
     protected $voucherRepository;
 
     /**
-     * @param VoucherRepository $voucherRepository
      * @return void
      */
     public function injectVoucherRepository(VoucherRepository $voucherRepository): void
@@ -57,5 +56,10 @@ class VoucherValidator extends AbstractValidator
             }
         }
         return $result;
+    }
+
+    protected function isValid(mixed $value): void
+    {
+        // TODO: Implement isValid() method.
     }
 }

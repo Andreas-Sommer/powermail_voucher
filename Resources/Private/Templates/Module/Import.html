@@ -1,18 +1,14 @@
-{namespace flux=FluidTYPO3\Flux\ViewHelpers}
-<f:layout name="Backend" />
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Module" />
 
-<f:section name="headline">
-	<h1><f:translate key="tx_powermailvoucher_backend.import">Simple Import</f:translate></h1>
-</f:section>
-
-<f:section name="content">
+<f:section name="Content">
 
 	<f:flashMessages />
 
-	<f:form action="import" enctype="multipart/form-data" name="fileupload" object="fileupload">
+	<f:form action="import" enctype="multipart/form-data">
 		<f:form.select class="form-select form-select-lg mb-3" id="campaign" name="campaign" options="{campaigns}" value="{campaign}" sortByOptionLabel="1" optionLabelField="title" optionValueField="uid" prependOptionLabel="{f:translate(key: 'tx_powermailvoucher_backend.select_campaign')}" additionalAttributes="{required: ''}" />
 
-		<f:form.upload class="form-control mb-3" property="file" additionalAttributes="{accept: '.csv', required: ''}"  />
+		<f:form.upload class="form-control mb-3" name="file" additionalAttributes="{accept: '.csv', required: ''}" />
 		<f:form.button class="btn btn-primary">upload</f:form.button>
 	</f:form>
 
@@ -25,7 +21,8 @@
 		</ul>
 
 		<h3><f:translate key="tx_powermailvoucher_backend.example">Example</f:translate></h3>
-		<f:format.html><f:translate key="tx_powermailvoucher_backend.foobar">foo
-			bar</f:translate></f:format.html>
+		<f:format.raw><f:translate key="tx_powermailvoucher_backend.foobar">foo
+			bar</f:translate></f:format.raw>
 	</aside>
 </f:section>
+</html>
