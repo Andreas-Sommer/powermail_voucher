@@ -1,5 +1,13 @@
 # Changelog
 
+## 12.0.1 - 2026-03-18
+
+- Ensure TypoScript setup is loaded in `ext_localconf.php` so voucher field partials are resolved without requiring manual static template inclusion
+- Make campaign resolution resilient across mixed Powermail field subclasses (`powermail_country` / `softingtheme`) by resolving campaign UID with method and DB fallback
+- Fix Extbase v12 query constraint usage (`logicalAnd` varargs instead of array)
+- Harden validator/data processor repository access with lazy repository initialization to avoid null repository fatals
+- Guard optional `Mail::setVoucher()` invocation for runtime compatibility with base Powermail mail model
+
 ## 12.0.0 - 2026-03-18
 
 - Ported extension to TYPO3 v12 backend module APIs

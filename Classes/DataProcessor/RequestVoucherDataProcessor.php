@@ -14,6 +14,7 @@ use Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository;
 use Belsignum\PowermailVoucher\Utility\VoucherUtility;
 use In2code\Powermail\DataProcessor\AbstractDataProcessor;
 use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class RequestVoucherDataProcessor extends AbstractDataProcessor
 {
@@ -51,9 +52,13 @@ class RequestVoucherDataProcessor extends AbstractDataProcessor
             $this->voucherField = VoucherUtility::getVoucherField($this->mail);
             if ($this->voucherField)
             {
+                $campaignUid = VoucherUtility::getCampaignUidFromField($this->voucherField);
+                if ($campaignUid <= 0) {
+                    throw new \UnexpectedValueException('Could not resolve voucher campaign');
+                }
                 /** @var Voucher $voucher */
                 $voucher
-                	= $this->voucherRepository->findOneUnusedByCampaign($this->voucherField->getCampaign());
+                	= $this->getVoucherRepository()->findOneUnusedByCampaignUid($campaignUid);
                 if ( ! $voucher)
                 {
                     throw new \UnexpectedValueException('Could not find any voucher codes');
@@ -61,7 +66,9 @@ class RequestVoucherDataProcessor extends AbstractDataProcessor
 
                 $this->mail->getAnswersByFieldUid()[$this->voucherField->getUid()]->setValue($voucher->getCode());
                 $voucher->setMail($this->mail);
-                $this->mail->setVoucher($voucher);
+                if (method_exists($this->mail, 'setVoucher')) {
+                    $this->mail->setVoucher($voucher);
+                }
             }
         }
     }
@@ -106,5 +113,13 @@ class RequestVoucherDataProcessor extends AbstractDataProcessor
             return '';
         }
         return (string)($powermailArguments['action'] ?? '');
+    }
+
+    protected function getVoucherRepository(): VoucherRepository
+    {
+        if (!$this->voucherRepository instanceof VoucherRepository) {
+            $this->voucherRepository = GeneralUtility::makeInstance(VoucherRepository::class);
+        }
+        return $this->voucherRepository;
     }
 }

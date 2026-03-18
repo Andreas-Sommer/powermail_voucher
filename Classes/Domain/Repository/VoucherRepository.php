@@ -1,7 +1,6 @@
 <?php
 namespace Belsignum\PowermailVoucher\Domain\Repository;
 
-use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -22,13 +21,19 @@ class VoucherRepository extends Repository
     /**
      * @return object
      */
-    public function findOneUnusedByCampaign(DomainObjectInterface $campaign): object
+    public function findOneUnusedByCampaignUid(int $campaignUid): ?object
     {
+        if ($campaignUid <= 0) {
+            return null;
+        }
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(FALSE);
 
         $query->matching(
-            $query->logicalAnd([$query->equals('campaign', $campaign->getUid()), $query->equals('mail', 0)])
+            $query->logicalAnd(
+                $query->equals('campaign', $campaignUid),
+                $query->equals('mail', 0)
+            )
         );
         return $query->execute()->getFirst();
     }
