@@ -5,6 +5,7 @@
 - Persist the drawn voucher: hand it to the repository (`update()`) so Extbase actually writes `mail` on the voucher record - without it the same code was handed out over and over
 - Persist the voucher answer and flush the persistence session on double opt-in confirmation, where powermail neither saves the mail again nor reaches Extbase's shutdown `persistAll()` because the redirect finisher aborts the request with a `PropagateResponseException`
 - Fail with a clear message instead of a fatal when the voucher field has no answer object
+- Collapse the mail relation of a voucher in the backend (`appearance.collapseAll`): voucher and mail reference each other as inline, so an expanded state in the editor's `uc` made FormEngine compile mail -> voucher -> mail ... until the memory limit was exhausted when opening a campaign's voucher that is already assigned to a mail
 
 ## 12.0.1 - 2026-03-18
 

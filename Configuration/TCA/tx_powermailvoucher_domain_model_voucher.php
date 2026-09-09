@@ -46,6 +46,12 @@ return [
 				'foreign_table' => 'tx_powermail_domain_model_mail',
 				'minitems' => 0,
 				'maxitems' => 1,
+				// The mail embeds the voucher as inline itself, so both tables reference each
+				// other. Without collapseAll an expanded state in the user's uc makes FormEngine
+				// compile mail -> voucher -> mail ... until the memory limit is hit.
+				'appearance' => [
+					'collapseAll' => true,
+				],
 			],
 		],
 
