@@ -13,8 +13,10 @@ use Belsignum\PowermailVoucher\Domain\Model\Voucher;
 use Belsignum\PowermailVoucher\Domain\Repository\VoucherRepository;
 use Belsignum\PowermailVoucher\Utility\VoucherUtility;
 use In2code\Powermail\DataProcessor\AbstractDataProcessor;
+use In2code\Powermail\Domain\Repository\AnswerRepository;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 
 class RequestVoucherDataProcessor extends AbstractDataProcessor
 {
@@ -64,10 +66,28 @@ class RequestVoucherDataProcessor extends AbstractDataProcessor
                     throw new \UnexpectedValueException('Could not find any voucher codes');
                 }
 
-                $this->mail->getAnswersByFieldUid()[$this->voucherField->getUid()]->setValue($voucher->getCode());
+                $answer = $this->mail->getAnswersByFieldUid()[$this->voucherField->getUid()] ?? null;
+                if ( ! $answer)
+                {
+                    throw new \UnexpectedValueException('Could not find the answer of the voucher field');
+                }
+
+                $answer->setValue($voucher->getCode());
                 $voucher->setMail($this->mail);
                 if (method_exists($this->mail, 'setVoucher')) {
                     $this->mail->setVoucher($voucher);
+                }
+
+                // Extbase only writes objects that were explicitly handed to a repository,
+                // so mark the voucher as used - otherwise the same code is handed out again.
+                $this->getVoucherRepository()->update($voucher);
+
+                if ($this->mail->getUid() !== null) {
+                    // Double opt-in: powermail skips its own persistAll() for an already
+                    // stored mail and the redirect finisher ends the request with a
+                    // PropagateResponseException before Extbase persists on shutdown.
+                    GeneralUtility::makeInstance(AnswerRepository::class)->update($answer);
+                    GeneralUtility::makeInstance(PersistenceManagerInterface::class)->persistAll();
                 }
             }
         }

@@ -1,5 +1,11 @@
 # Changelog
 
+## 12.0.2 - 2026-09-08
+
+- Persist the drawn voucher: hand it to the repository (`update()`) so Extbase actually writes `mail` on the voucher record - without it the same code was handed out over and over
+- Persist the voucher answer and flush the persistence session on double opt-in confirmation, where powermail neither saves the mail again nor reaches Extbase's shutdown `persistAll()` because the redirect finisher aborts the request with a `PropagateResponseException`
+- Fail with a clear message instead of a fatal when the voucher field has no answer object
+
 ## 12.0.1 - 2026-03-18
 
 - Ensure TypoScript setup is loaded in `ext_localconf.php` so voucher field partials are resolved without requiring manual static template inclusion
